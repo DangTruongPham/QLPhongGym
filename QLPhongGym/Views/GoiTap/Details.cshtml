@@ -1,0 +1,33 @@
+@model QLPhongGym.Models.GoiTap
+
+@{
+    ViewData["Title"] = "Chi tiết gói tập";
+}
+
+<h2 class="mb-4">Chi tiết gói tập</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="200">Mã gói tập</th>
+        <td>@Model.MaGoiTap</td>
+    </tr>
+    <tr>
+        <th>Tên gói tập</th>
+        <td>@Model.TenGoiTap</td>
+    </tr>
+    <tr>
+        <th>Thời hạn</th>
+        <td>@Model.ThoiHanThang tháng</td>
+    </tr>
+    <tr>
+        <th>Giá tiền</th>
+        <td>@Model.GiaTien.ToString("N0") VNĐ</td>
+    </tr>
+    <tr>
+        <th>Mô tả</th>
+        <td>@Model.MoTa</td>
+    </tr>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.MaGoiTap" class="btn btn-warning">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

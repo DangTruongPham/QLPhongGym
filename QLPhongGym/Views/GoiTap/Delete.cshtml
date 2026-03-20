@@ -1,0 +1,36 @@
+@model QLPhongGym.Models.GoiTap
+
+@{
+    ViewData["Title"] = "Xóa gói tập";
+}
+
+<h2 class="mb-4 text-danger">Xóa gói tập</h2>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa gói tập này không?
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="200">Mã gói tập</th>
+        <td>@Model.MaGoiTap</td>
+    </tr>
+    <tr>
+        <th>Tên gói tập</th>
+        <td>@Model.TenGoiTap</td>
+    </tr>
+    <tr>
+        <th>Thời hạn</th>
+        <td>@Model.ThoiHanThang tháng</td>
+    </tr>
+    <tr>
+        <th>Giá tiền</th>
+        <td>@Model.GiaTien.ToString("N0") VNĐ</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaGoiTap" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

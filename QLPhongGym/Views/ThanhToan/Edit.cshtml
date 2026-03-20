@@ -1,0 +1,53 @@
+@model QLPhongGym.Models.ThanhToan
+
+@{
+    ViewData["Title"] = "Sửa thanh toán";
+}
+
+<h2 class="mb-4">Sửa phiếu thanh toán</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MaThanhToan" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="MaDangKy" class="form-label"></label>
+        <select asp-for="MaDangKy" asp-items="ViewBag.MaDangKy" class="form-control">
+            <option value="">-- Chọn đăng ký gói tập --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NgayThanhToan" class="form-label"></label>
+        <input asp-for="NgayThanhToan" type="datetime-local" class="form-control"
+               value="@Model.NgayThanhToan.ToString("yyyy-MM-ddTHH:mm")" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SoTien" class="form-label"></label>
+        <input asp-for="SoTien" class="form-control" />
+        <span asp-validation-for="SoTien" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhuongThuc" class="form-label"></label>
+        <select asp-for="PhuongThuc" class="form-control">
+            <option value="">-- Chọn phương thức --</option>
+            <option value="Tiền mặt">Tiền mặt</option>
+            <option value="Chuyển khoản">Chuyển khoản</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GhiChu" class="form-label"></label>
+        <textarea asp-for="GhiChu" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

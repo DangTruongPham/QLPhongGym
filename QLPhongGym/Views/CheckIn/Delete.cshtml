@@ -1,0 +1,32 @@
+@model QLPhongGym.Models.CheckIn
+
+@{
+    ViewData["Title"] = "Xóa check-in";
+}
+
+<h2 class="mb-4 text-danger">Xóa check-in</h2>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa lịch sử check-in này không?
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="220">Mã check-in</th>
+        <td>@Model.MaCheckIn</td>
+    </tr>
+    <tr>
+        <th>Hội viên</th>
+        <td>@Model.HoiVien?.HoTen</td>
+    </tr>
+    <tr>
+        <th>Thời gian</th>
+        <td>@Model.ThoiGianCheckIn.ToString("dd/MM/yyyy HH:mm")</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaCheckIn" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

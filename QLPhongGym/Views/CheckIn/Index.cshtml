@@ -1,0 +1,62 @@
+@model List<QLPhongGym.Models.CheckIn>
+
+@{
+    ViewData["Title"] = "Check-in";
+}
+
+<h2 class="mb-4">Danh sách check-in</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get" asp-action="Index" class="d-flex">
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control me-2" placeholder="Nhập tên hoặc số điện thoại hội viên..." />
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Create" class="btn btn-success">+ Check-in</a>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã CI</th>
+            <th>Hội viên</th>
+            <th>Số điện thoại</th>
+            <th>Thời gian check-in</th>
+            <th>Ghi chú</th>
+            <th width="300">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaCheckIn</td>
+                    <td>@item.HoiVien?.HoTen</td>
+                    <td>@item.HoiVien?.SoDienThoai</td>
+                    <td>@item.ThoiGianCheckIn.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.GhiChu</td>
+                    <td>
+                        <partial name="_ActionButtons"
+                                 model='new QLPhongGym.Models.ActionButtonsViewModel { Id = item.MaCheckIn, ControllerName = "CheckIn" }' />
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center text-muted">Không có dữ liệu check-in</td>
+            </tr>
+        }
+    </tbody>
+</table>

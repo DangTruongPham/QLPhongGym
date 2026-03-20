@@ -1,0 +1,90 @@
+@model List<QLPhongGym.Models.DangKyGoiTap>
+
+@{
+    ViewData["Title"] = "Báo cáo";
+}
+
+<h2 class="mb-4">Báo cáo thống kê</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Tổng hội viên</h5>
+                <h3>@ViewBag.TongHoiVien</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Hội viên còn hạn</h5>
+                <h3>@ViewBag.HoiVienConHan</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Hội viên hết hạn</h5>
+                <h3>@ViewBag.HoiVienHetHan</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Doanh thu hôm nay</h5>
+                <h3>@(((decimal)ViewBag.DoanhThuHomNay).ToString("N0")) VNĐ</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Doanh thu tháng này</h5>
+                <h3>@(((decimal)ViewBag.DoanhThuThangNay).ToString("N0")) VNĐ</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header bg-warning">
+        <strong>Danh sách hội viên sắp hết hạn</strong>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hội viên</th>
+                        <th>Gói tập</th>
+                        <th>Ngày hết hạn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.HoiVien?.HoTen</td>
+                            <td>@item.GoiTap?.TenGoiTap</td>
+                            <td>@item.NgayKetThuc.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Không có hội viên nào sắp hết hạn.</p>
+        }
+    </div>
+</div>

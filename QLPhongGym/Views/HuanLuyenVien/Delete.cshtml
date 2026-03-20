@@ -1,0 +1,40 @@
+@model QLPhongGym.Models.HuanLuyenVien
+
+@{
+    ViewData["Title"] = "Xóa huấn luyện viên";
+}
+
+<h2 class="mb-4 text-danger">Xóa huấn luyện viên</h2>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa huấn luyện viên này không?
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="220">Mã huấn luyện viên</th>
+        <td>@Model.MaHLV</td>
+    </tr>
+    <tr>
+        <th>Họ tên</th>
+        <td>@Model.HoTen</td>
+    </tr>
+    <tr>
+        <th>Số điện thoại</th>
+        <td>@Model.SoDienThoai</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Chuyên môn</th>
+        <td>@Model.ChuyenMon</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaHLV" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

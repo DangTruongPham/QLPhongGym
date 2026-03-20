@@ -1,0 +1,47 @@
+@model QLPhongGym.Models.DangKyGoiTap
+
+@{
+    ViewData["Title"] = "Thêm đăng ký gói tập";
+}
+
+<h2 class="mb-4">Thêm đăng ký gói tập</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="MaHoiVien" class="form-label"></label>
+        <select asp-for="MaHoiVien" asp-items="ViewBag.MaHoiVien" class="form-control">
+            <option value="">-- Chọn hội viên --</option>
+        </select>
+        <span asp-validation-for="MaHoiVien" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MaGoiTap" class="form-label"></label>
+        <select asp-for="MaGoiTap" asp-items="ViewBag.MaGoiTap" class="form-control">
+            <option value="">-- Chọn gói tập --</option>
+        </select>
+        <span asp-validation-for="MaGoiTap" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MaHLV" class="form-label"></label>
+        <select asp-for="MaHLV" asp-items="ViewBag.MaHLV" class="form-control">
+            <option value="">-- Chọn huấn luyện viên --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NgayBatDau" class="form-label"></label>
+        <input asp-for="NgayBatDau" type="date" class="form-control" />
+        <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

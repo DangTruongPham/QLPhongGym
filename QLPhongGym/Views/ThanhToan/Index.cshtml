@@ -1,0 +1,131 @@
+@model List<QLPhongGym.Models.ThanhToan>
+@using QLPhongGym.Models
+
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<div class="card shadow border-0 rounded-4">
+    <div class="card-header bg-primary text-white py-3 rounded-top-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h4 class="mb-0">
+                <i class="bi bi-cash-coin"></i> Danh sách thanh toán
+            </h4>
+            <a asp-action="Create" class="btn btn-light text-primary fw-semibold">
+                <i class="bi bi-plus-circle-fill"></i> Thêm thanh toán
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <form method="get" asp-action="Index" class="row g-2 mb-4">
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text"
+                           name="keyword"
+                           value="@ViewBag.Keyword"
+                           class="form-control"
+                           placeholder="Nhập tên hội viên để tìm kiếm..." />
+                </div>
+            </div>
+            <div class="col-md-2 d-grid">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Tìm
+                </button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Mã TT</th>
+                        <th>Hội viên</th>
+                        <th>Gói tập</th>
+                        <th>Ngày thanh toán</th>
+                        <th>Số tiền</th>
+                        <th>Phương thức</th>
+                        <th>Trạng thái</th>
+                        <th class="text-center" width="260">Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="fw-semibold text-primary">#@item.MaThanhToan</span>
+                                </td>
+                                <td>@item.DangKyGoiTap?.HoiVien?.HoTen</td>
+                                <td>@item.DangKyGoiTap?.GoiTap?.TenGoiTap</td>
+                                <td>@item.NgayThanhToan.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="fw-bold text-success">@item.SoTien.ToString("N0") VNĐ</td>
+                                <td>
+                                    @if (item.PhuongThuc == "Chuyển khoản")
+                                    {
+                                        <span class="badge bg-info text-dark px-3 py-2 rounded-pill">
+                                            <i class="bi bi-qr-code"></i> @item.PhuongThuc
+                                        </span>
+                                    }
+                                    else if (item.PhuongThuc == "Tiền mặt")
+                                    {
+                                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">
+                                            <i class="bi bi-cash"></i> @item.PhuongThuc
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary px-3 py-2 rounded-pill">
+                                            @item.PhuongThuc
+                                        </span>
+                                    }
+                                </td>
+                               <td>
+
+                                    @if (item.TrangThaiThanhToan == "Đã thanh toán")
+                                    {
+                                        <span class="badge bg-success px-3 py-2 rounded-pill">
+                                            <i class="bi bi-check-circle-fill"></i> Đã thanh toán
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary px-3 py-2 rounded-pill me-2">
+                                            <i class="bi bi-hourglass-split"></i> Chưa thanh toán
+                                        </span>
+
+                                        <a asp-action="XacNhanThanhToan"
+                                        asp-route-id="@item.MaThanhToan"
+                                        class="btn btn-success btn-sm">
+
+                                            <i class="bi bi-check-circle"></i>
+                                        </a>
+                                    }
+
+                                    </td>
+                                <td>
+                                    <partial name="_ActionButtons"
+                                             model='new ActionButtonsViewModel { Id = item.MaThanhToan, ControllerName = "ThanhToan" }' />
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+                                Không có dữ liệu thanh toán
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

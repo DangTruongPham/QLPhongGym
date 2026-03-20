@@ -1,0 +1,157 @@
+@model QLPhongGym.Models.ThanhToan
+
+@{
+    ViewData["Title"] = "Thêm thanh toán";
+}
+
+<h2 class="mb-4">Thêm phiếu thanh toán</h2>
+
+<div class="row">
+    <div class="col-lg-7">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="MaDangKy" class="form-label"></label>
+                <select asp-for="MaDangKy" asp-items="ViewBag.MaDangKy" id="MaDangKy" class="form-control">
+                    <option value="">-- Chọn đăng ký gói tập --</option>
+                </select>
+                <span asp-validation-for="MaDangKy" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NgayThanhToan" class="form-label"></label>
+                <input asp-for="NgayThanhToan"
+                       type="datetime-local"
+                       class="form-control"
+                       value="@Model.NgayThanhToan.ToString("yyyy-MM-ddTHH:mm")" />
+            </div>
+
+           <div class="mb-3">
+                <label asp-for="SoTien" class="form-label"></label>
+                <input asp-for="SoTien" id="SoTien" class="form-control" />
+                <span asp-validation-for="SoTien" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <select asp-for="PhuongThuc" id="PhuongThuc" class="form-control">
+                    <label asp-for="PhuongThuc" class="form-label">Chọn phương thức thanh toán</label>
+                    <option value="">-- Chọn phương thức --</option>
+                    <option value="Tiền mặt">Tiền mặt</option>
+                    <option value="Chuyển khoản">Chuyển khoản</option>
+                </select>
+            </div>         
+            <div class="mb-3">
+                <label asp-for="GhiChu" class="form-label"></label>
+                <textarea asp-for="GhiChu" id="GhiChu" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save"></i> Lưu thanh toán
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Quay lại
+            </a>
+        </form>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card shadow border-0 rounded-4" id="qrCard">
+            <div class="card-header bg-primary text-white">
+                <strong><i class="bi bi-qr-code"></i> QR chuyển khoản Vietcombank</strong>
+            </div>
+            <div class="card-body text-center">
+                <img id="vietQrPreview"
+                     src="@Model.VietQrUrl"
+                     alt="VietQR"
+                     class="img-fluid rounded-3 border mb-3"
+                     style="max-width: 320px;" />
+
+                <div class="small text-muted">
+                    Ngân hàng: Vietcombank<br />
+                    STK: 1031674306<br />
+                    Chủ TK: PHAN DUY KHANG
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const dangKyInput = document.getElementById("MaDangKy");
+        const amountInput = document.getElementById("SoTien");
+        const methodInput = document.getElementById("PhuongThuc");
+        const qrImg = document.getElementById("vietQrPreview");
+        const qrCard = document.getElementById("qrCard");
+
+        async function loadSoTienByDangKy() {
+            const maDangKy = dangKyInput?.value;
+
+            if (!maDangKy) {
+                amountInput.value = 0;
+                updateQr();
+                return;
+            }
+
+            try {
+                const response = await fetch(`/ThanhToan/GetSoTienByDangKy?maDangKy=${maDangKy}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    amountInput.value = data.soTien;
+                } else {
+                    amountInput.value = 0;
+                }
+
+                updateQr();
+            } catch (error) {
+                amountInput.value = 0;
+                updateQr();
+            }
+        }
+
+        function updateQr() {
+            const amount = amountInput?.value ? parseInt(amountInput.value) || 0 : 0;
+            const method = methodInput?.value || "";
+            const accountName = encodeURIComponent("PHAN DUY KHANG");
+            const addInfo = encodeURIComponent("THANH TOAN GYM");
+
+            if (method === "Chuyển khoản") {
+                qrCard.style.display = "block";
+                qrImg.src = `https://img.vietqr.io/image/VCB-1031674306-compact2.png?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+            } else {
+                qrCard.style.display = "none";
+            }
+        }
+
+        if (dangKyInput) dangKyInput.addEventListener("change", loadSoTienByDangKy);
+        if (amountInput) amountInput.addEventListener("input", updateQr);
+        if (methodInput) methodInput.addEventListener("change", updateQr);
+
+        updateQr();
+    </script>
+    <script>
+    const phuongThuc = document.getElementById("PhuongThuc");
+    const ghiChu = document.getElementById("GhiChu");
+
+    function updateGhiChu() {
+        if (!phuongThuc || !ghiChu) return;
+
+        if (phuongThuc.value === "Chuyển khoản") {
+            ghiChu.value = "Thanh toán online";
+        }
+        else if (phuongThuc.value === "Tiền mặt") {
+            ghiChu.value = "Thanh toán tại quầy";
+        }
+        else {
+            ghiChu.value = "";
+        }
+    }
+
+    if (phuongThuc) {
+        phuongThuc.addEventListener("change", updateGhiChu);
+        updateGhiChu();
+    }
+</script>
+}

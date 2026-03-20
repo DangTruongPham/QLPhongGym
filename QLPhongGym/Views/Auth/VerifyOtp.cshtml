@@ -1,0 +1,104 @@
+@model QLPhongGym.Models.VerifyOtpViewModel
+
+@{
+    ViewData["Title"] = "Xác thực OTP";
+    Layout = null;
+    var remaining = ViewBag.RemainingSeconds != null ? (int)ViewBag.RemainingSeconds : 0;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xác thực OTP</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="login-page">
+        <div class="card login-card">
+            <div class="card-header text-center">
+                <div class="login-logo">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <h3 class="fw-bold">XÁC THỰC OTP</h3>
+                <p class="text-muted">Nhập mã OTP đã gửi về email</p>
+            </div>
+
+            <div class="card-body p-4">
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Error</div>
+                }
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Success"]</div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+
+                <form asp-action="VerifyOtp" method="post">
+                    <input asp-for="Email" type="hidden" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input class="form-control" value="@Model.Email" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="OtpCode" class="form-label fw-semibold">Mã OTP</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                            <input asp-for="OtpCode" class="form-control" maxlength="6" placeholder="Nhập 6 số OTP" />
+                        </div>
+                        <span asp-validation-for="OtpCode" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        <i class="bi bi-check-circle-fill"></i> Xác nhận OTP
+                    </button>
+                </form>
+
+                <form asp-action="ResendOtp" method="post">
+                    <input type="hidden" name="email" value="@Model.Email" />
+                    <button type="submit" id="resendBtn" class="btn btn-outline-secondary w-100" @(remaining > 0 ? "disabled" : "")>
+                        <i class="bi bi-arrow-repeat"></i> Gửi lại OTP
+                    </button>
+                </form>
+
+                <div class="text-center mt-2">
+                    <small id="countdownText" class="text-muted">
+                        @(remaining > 0 ? $"Gửi lại sau {remaining}s" : "Bạn có thể gửi lại OTP")
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let remaining = @remaining;
+        const resendBtn = document.getElementById("resendBtn");
+        const countdownText = document.getElementById("countdownText");
+
+        if (remaining > 0) {
+            const timer = setInterval(() => {
+                remaining--;
+                countdownText.innerText = `Gửi lại sau ${remaining}s`;
+
+                if (remaining <= 0) {
+                    clearInterval(timer);
+                    resendBtn.disabled = false;
+                    countdownText.innerText = "Bạn có thể gửi lại OTP";
+                }
+            }, 1000);
+        }
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

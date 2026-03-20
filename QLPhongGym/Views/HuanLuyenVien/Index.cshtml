@@ -1,0 +1,63 @@
+@model List<QLPhongGym.Models.HuanLuyenVien>
+
+@{
+    ViewData["Title"] = "Danh sách huấn luyện viên";
+}
+
+<h2 class="mb-4">Danh sách huấn luyện viên</h2>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get" asp-action="Index" class="d-flex">
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control me-2" placeholder="Nhập tên, số điện thoại hoặc chuyên môn..." />
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Create" class="btn btn-success">+ Thêm huấn luyện viên</a>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã HLV</th>
+            <th>Họ tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Chuyên môn</th>
+            <th>Trạng thái</th>
+            <th width="250">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaHLV</td>
+                    <td>@item.HoTen</td>
+                    <td>@item.GioiTinh</td>
+                    <td>@(item.NgaySinh?.ToString("dd/MM/yyyy"))</td>
+                    <td>@item.SoDienThoai</td>
+                    <td>@item.Email</td>
+                    <td>@item.ChuyenMon</td>
+                    <td>@item.TrangThai</td>
+                   <td>
+                        <partial name="_ActionButtons"
+                                 model='new QLPhongGym.Models.ActionButtonsViewModel { Id = item.MaHLV, ControllerName = "HuanLuyenVien" }' />
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9" class="text-center text-muted">Không có dữ liệu huấn luyện viên</td>
+            </tr>
+        }
+    </tbody>
+</table>

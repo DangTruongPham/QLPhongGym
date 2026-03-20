@@ -1,0 +1,61 @@
+@model QLPhongGym.Models.HuanLuyenVien
+
+@{
+    ViewData["Title"] = "Thêm huấn luyện viên";
+}
+
+<h2 class="mb-4">Thêm huấn luyện viên</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="HoTen" class="form-label"></label>
+        <input asp-for="HoTen" class="form-control" />
+        <span asp-validation-for="HoTen" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GioiTinh" class="form-label"></label>
+        <select asp-for="GioiTinh" class="form-control">
+            <option value="">-- Chọn giới tính --</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NgaySinh" class="form-label"></label>
+        <input asp-for="NgaySinh" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SoDienThoai" class="form-label"></label>
+        <input asp-for="SoDienThoai" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ChuyenMon" class="form-label"></label>
+        <input asp-for="ChuyenMon" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TrangThai" class="form-label"></label>
+        <select asp-for="TrangThai" class="form-control">
+            <option value="Đang làm">Đang làm</option>
+            <option value="Nghỉ">Nghỉ</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

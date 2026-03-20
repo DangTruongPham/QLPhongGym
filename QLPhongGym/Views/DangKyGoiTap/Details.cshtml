@@ -1,0 +1,41 @@
+@model QLPhongGym.Models.DangKyGoiTap
+
+@{
+    ViewData["Title"] = "Chi tiết đăng ký";
+}
+
+<h2 class="mb-4">Chi tiết đăng ký gói tập</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="220">Mã đăng ký</th>
+        <td>@Model.MaDangKy</td>
+    </tr>
+    <tr>
+        <th>Hội viên</th>
+        <td>@Model.HoiVien?.HoTen</td>
+    </tr>
+    <tr>
+        <th>Gói tập</th>
+        <td>@Model.GoiTap?.TenGoiTap</td>
+    </tr>
+    <tr>
+        <th>Huấn luyện viên</th>
+        <td>@Model.HuanLuyenVien?.HoTen</td>
+    </tr>
+    <tr>
+        <th>Ngày bắt đầu</th>
+        <td>@Model.NgayBatDau.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <th>Ngày kết thúc</th>
+        <td>@Model.NgayKetThuc.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <th>Trạng thái</th>
+        <td>@Model.TrangThai</td>
+    </tr>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.MaDangKy" class="btn btn-warning">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

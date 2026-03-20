@@ -1,0 +1,13 @@
+@model QLPhongGym.Models.ActionButtonsViewModel
+
+<a asp-controller="@Model.ControllerName" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-sm">
+    <i class="bi bi-eye"></i> Chi tiết
+</a>
+
+<a asp-controller="@Model.ControllerName" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">
+    <i class="bi bi-pencil-square"></i> Sửa
+</a>
+
+<a asp-controller="@Model.ControllerName" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">
+    <i class="bi bi-trash"></i> Xóa
+</a>

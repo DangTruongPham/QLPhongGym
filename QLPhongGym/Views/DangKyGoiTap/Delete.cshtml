@@ -1,0 +1,36 @@
+@model QLPhongGym.Models.DangKyGoiTap
+
+@{
+    ViewData["Title"] = "Xóa đăng ký";
+}
+
+<h2 class="mb-4 text-danger">Xóa đăng ký gói tập</h2>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa đăng ký này không?
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="220">Mã đăng ký</th>
+        <td>@Model.MaDangKy</td>
+    </tr>
+    <tr>
+        <th>Hội viên</th>
+        <td>@Model.HoiVien?.HoTen</td>
+    </tr>
+    <tr>
+        <th>Gói tập</th>
+        <td>@Model.GoiTap?.TenGoiTap</td>
+    </tr>
+    <tr>
+        <th>Huấn luyện viên</th>
+        <td>@Model.HuanLuyenVien?.HoTen</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaDangKy" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

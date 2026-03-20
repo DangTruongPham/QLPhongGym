@@ -1,0 +1,41 @@
+@model QLPhongGym.Models.GoiTap
+
+@{
+    ViewData["Title"] = "Thêm gói tập";
+}
+
+<h2 class="mb-4">Thêm gói tập</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="TenGoiTap" class="form-label"></label>
+        <input asp-for="TenGoiTap" class="form-control" />
+        <span asp-validation-for="TenGoiTap" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ThoiHanThang" class="form-label"></label>
+        <input asp-for="ThoiHanThang" class="form-control" />
+        <span asp-validation-for="ThoiHanThang" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GiaTien" class="form-label"></label>
+        <input asp-for="GiaTien" class="form-control" />
+        <span asp-validation-for="GiaTien" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MoTa" class="form-label"></label>
+        <textarea asp-for="MoTa" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

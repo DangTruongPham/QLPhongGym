@@ -1,0 +1,45 @@
+@model QLPhongGym.Models.HuanLuyenVien
+
+@{
+    ViewData["Title"] = "Chi tiết huấn luyện viên";
+}
+
+<h2 class="mb-4">Chi tiết huấn luyện viên</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="220">Mã huấn luyện viên</th>
+        <td>@Model.MaHLV</td>
+    </tr>
+    <tr>
+        <th>Họ tên</th>
+        <td>@Model.HoTen</td>
+    </tr>
+    <tr>
+        <th>Giới tính</th>
+        <td>@Model.GioiTinh</td>
+    </tr>
+    <tr>
+        <th>Ngày sinh</th>
+        <td>@(Model.NgaySinh?.ToString("dd/MM/yyyy"))</td>
+    </tr>
+    <tr>
+        <th>Số điện thoại</th>
+        <td>@Model.SoDienThoai</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Chuyên môn</th>
+        <td>@Model.ChuyenMon</td>
+    </tr>
+    <tr>
+        <th>Trạng thái</th>
+        <td>@Model.TrangThai</td>
+    </tr>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.MaHLV" class="btn btn-warning">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

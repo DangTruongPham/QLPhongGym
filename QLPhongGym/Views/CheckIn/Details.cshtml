@@ -1,0 +1,32 @@
+@model QLPhongGym.Models.CheckIn
+
+@{
+    ViewData["Title"] = "Chi tiết check-in";
+}
+
+<h2 class="mb-4">Chi tiết check-in</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th width="220">Mã check-in</th>
+        <td>@Model.MaCheckIn</td>
+    </tr>
+    <tr>
+        <th>Hội viên</th>
+        <td>@Model.HoiVien?.HoTen</td>
+    </tr>
+    <tr>
+        <th>Số điện thoại</th>
+        <td>@Model.HoiVien?.SoDienThoai</td>
+    </tr>
+    <tr>
+        <th>Thời gian check-in</th>
+        <td>@Model.ThoiGianCheckIn.ToString("dd/MM/yyyy HH:mm")</td>
+    </tr>
+    <tr>
+        <th>Ghi chú</th>
+        <td>@Model.GhiChu</td>
+    </tr>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

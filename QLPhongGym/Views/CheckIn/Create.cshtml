@@ -1,0 +1,37 @@
+@model QLPhongGym.Models.CheckIn
+
+@{
+    ViewData["Title"] = "Check-in hội viên";
+}
+
+<h2 class="mb-4">Check-in hội viên</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="MaHoiVien" class="form-label"></label>
+        <select asp-for="MaHoiVien" asp-items="ViewBag.MaHoiVien" class="form-control">
+            <option value="">-- Chọn hội viên --</option>
+        </select>
+        <span asp-validation-for="MaHoiVien" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ThoiGianCheckIn" class="form-label"></label>
+        <input asp-for="ThoiGianCheckIn" type="datetime-local" class="form-control"
+               value="@Model.ThoiGianCheckIn.ToString("yyyy-MM-ddTHH:mm")" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GhiChu" class="form-label"></label>
+        <textarea asp-for="GhiChu" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Xác nhận check-in</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
