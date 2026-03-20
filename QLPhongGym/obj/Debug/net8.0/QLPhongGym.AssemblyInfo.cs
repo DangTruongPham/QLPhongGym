@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QLPhongGym")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2d7c1f53eac714bc21d65ea46f14dad9d38f76e")]
 [assembly: System.Reflection.AssemblyProductAttribute("QLPhongGym")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QLPhongGym")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

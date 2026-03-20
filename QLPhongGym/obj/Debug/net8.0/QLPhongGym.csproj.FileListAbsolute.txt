@@ -275,3 +275,4 @@ D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\refint\QLPhongGym.dll
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.pdb
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.genruntimeconfig.cache
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\ref\QLPhongGym.dll
+D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.sourcelink.json
