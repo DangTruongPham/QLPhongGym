@@ -15,7 +15,7 @@ namespace QLPhongGym.Models
         public int MaHoiVien { get; set; }
 
         [Display(Name = "Thời gian check-in")]
-        public DateTime ThoiGianCheckIn { get; set; } = DateTime.Now;
+        public DateTime ThoiGianCheckIn { get; set; } = DateTime.UtcNow;
 
         [StringLength(255)]
         [Display(Name = "Ghi chú")]

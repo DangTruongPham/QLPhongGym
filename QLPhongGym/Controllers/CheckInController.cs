@@ -58,7 +58,7 @@ namespace QLPhongGym.Controllers
             LoadHoiVienDropDown();
             return View(new CheckIn
             {
-                ThoiGianCheckIn = DateTime.Now
+                ThoiGianCheckIn = DateTime.UtcNow
             });
         }
 

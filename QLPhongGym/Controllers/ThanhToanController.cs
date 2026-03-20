@@ -124,7 +124,7 @@ namespace QLPhongGym.Controllers
 
             var model = new ThanhToan
             {
-                NgayThanhToan = DateTime.Now,
+                NgayThanhToan = DateTime.UtcNow,
                 PhuongThuc = "Chuyển khoản",
                 SoTien = 0
             };

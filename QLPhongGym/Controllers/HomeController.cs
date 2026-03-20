@@ -16,8 +16,10 @@ namespace QLPhongGym.Controllers
 
         public IActionResult Index()
         {
-            var today = DateTime.Today;
-            var firstDayOfMonth = new DateTime(today.Year, today.Month, 1);
+            var today = DateTime.UtcNow.Date;
+            var tomorrow = today.AddDays(1);
+
+            var firstDayOfMonth = new DateTime(today.Year, today.Month, 1, 0, 0, 0, DateTimeKind.Utc);
             var firstDayOfNextMonth = firstDayOfMonth.AddMonths(1);
 
             var model = new DashboardViewModel
@@ -28,7 +30,7 @@ namespace QLPhongGym.Controllers
                 TongDangKy = _context.DangKyGoiTaps.Count(),
 
                 TongCheckInHomNay = _context.CheckIns.Count(x =>
-                    x.ThoiGianCheckIn.Date == today),
+                    x.ThoiGianCheckIn >= today && x.ThoiGianCheckIn < tomorrow),
 
                 DoanhThuThangNay = _context.ThanhToans
                     .Where(x => x.NgayThanhToan >= firstDayOfMonth && x.NgayThanhToan < firstDayOfNextMonth)
@@ -52,11 +54,10 @@ namespace QLPhongGym.Controllers
                     .ToList()
             };
 
-            // Doanh thu 6 tháng gần nhất
             for (int i = 5; i >= 0; i--)
             {
                 var monthDate = today.AddMonths(-i);
-                var start = new DateTime(monthDate.Year, monthDate.Month, 1);
+                var start = new DateTime(monthDate.Year, monthDate.Month, 1, 0, 0, 0, DateTimeKind.Utc);
                 var end = start.AddMonths(1);
 
                 model.RevenueLabels.Add($"Tháng {monthDate.Month}");
@@ -67,13 +68,14 @@ namespace QLPhongGym.Controllers
                 );
             }
 
-            // Check-in 7 ngày gần nhất
             for (int i = 6; i >= 0; i--)
             {
                 var date = today.AddDays(-i);
+                var nextDate = date.AddDays(1);
+
                 model.CheckInLabels.Add(date.ToString("dd/MM"));
                 model.CheckInData.Add(
-                    _context.CheckIns.Count(x => x.ThoiGianCheckIn.Date == date)
+                    _context.CheckIns.Count(x => x.ThoiGianCheckIn >= date && x.ThoiGianCheckIn < nextDate)
                 );
             }
 

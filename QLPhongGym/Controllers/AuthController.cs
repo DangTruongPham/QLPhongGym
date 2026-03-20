@@ -95,7 +95,7 @@ namespace QLPhongGym.Controllers
                 return View(model);
             }
 
-            if (taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt.Value > DateTime.Now)
+            if (taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt.Value > DateTime.UtcNow)
             {
                 TempData["Error"] = "Vui lòng chờ trước khi gửi lại OTP";
                 return RedirectToAction("VerifyOtp", new { email = model.Email });
@@ -104,8 +104,8 @@ namespace QLPhongGym.Controllers
             var otp = GenerateOtp();
 
             taiKhoan.OtpCode = otp;
-            taiKhoan.OtpExpiry = DateTime.Now.AddMinutes(5);
-            taiKhoan.OtpCanResendAt = DateTime.Now.AddSeconds(60);
+            taiKhoan.OtpExpiry = DateTime.UtcNow.AddMinutes(5);
+            taiKhoan.OtpCanResendAt = DateTime.UtcNow.AddSeconds(60);
             taiKhoan.OtpVerified = false;
 
             _context.SaveChanges();
@@ -138,9 +138,9 @@ namespace QLPhongGym.Controllers
             }
 
             int remainingSeconds = 0;
-            if (taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt.Value > DateTime.Now)
+            if (taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt.Value > DateTime.UtcNow)
             {
-                remainingSeconds = (int)(taiKhoan.OtpCanResendAt.Value - DateTime.Now).TotalSeconds;
+                remainingSeconds = (int)(taiKhoan.OtpCanResendAt.Value - DateTime.UtcNow).TotalSeconds;
             }
 
             ViewBag.RemainingSeconds = remainingSeconds;
@@ -168,11 +168,11 @@ namespace QLPhongGym.Controllers
                 return View(model);
             }
 
-            if (taiKhoan.OtpCode != model.OtpCode || !taiKhoan.OtpExpiry.HasValue || taiKhoan.OtpExpiry.Value < DateTime.Now)
+            if (taiKhoan.OtpCode != model.OtpCode || !taiKhoan.OtpExpiry.HasValue || taiKhoan.OtpExpiry.Value < DateTime.UtcNow)
             {
                 ViewBag.Error = "OTP không đúng hoặc đã hết hạn";
-                ViewBag.RemainingSeconds = taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt > DateTime.Now
-                    ? (int)(taiKhoan.OtpCanResendAt.Value - DateTime.Now).TotalSeconds
+                ViewBag.RemainingSeconds = taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt > DateTime.UtcNow
+                    ? (int)(taiKhoan.OtpCanResendAt.Value - DateTime.UtcNow).TotalSeconds
                     : 0;
                 return View(model);
             }
@@ -197,7 +197,7 @@ namespace QLPhongGym.Controllers
                 return RedirectToAction("ForgotPassword");
             }
 
-            if (taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt.Value > DateTime.Now)
+            if (taiKhoan.OtpCanResendAt.HasValue && taiKhoan.OtpCanResendAt.Value > DateTime.UtcNow)
             {
                 TempData["Error"] = "Chưa đến thời gian gửi lại OTP";
                 return RedirectToAction("VerifyOtp", new { email });
@@ -206,8 +206,8 @@ namespace QLPhongGym.Controllers
             var otp = GenerateOtp();
 
             taiKhoan.OtpCode = otp;
-            taiKhoan.OtpExpiry = DateTime.Now.AddMinutes(5);
-            taiKhoan.OtpCanResendAt = DateTime.Now.AddSeconds(60);
+            taiKhoan.OtpExpiry = DateTime.UtcNow.AddMinutes(5);
+            taiKhoan.OtpCanResendAt = DateTime.UtcNow.AddSeconds(60);
             taiKhoan.OtpVerified = false;
 
             _context.SaveChanges();

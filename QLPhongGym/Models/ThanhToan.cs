@@ -15,7 +15,7 @@ namespace QLPhongGym.Models
         public int MaDangKy { get; set; }
 
         [Display(Name = "Ngày thanh toán")]
-        public DateTime NgayThanhToan { get; set; } = DateTime.Now;
+        public DateTime NgayThanhToan { get; set; } = DateTime.UtcNow;
 
         [Required(ErrorMessage = "Số tiền không được để trống")]
         [Display(Name = "Số tiền")]

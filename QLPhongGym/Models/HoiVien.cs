@@ -34,7 +34,7 @@ namespace QLPhongGym.Models
         public string? DiaChi { get; set; }
 
         [Display(Name = "Ngày đăng ký")]
-        public DateTime NgayDangKy { get; set; } = DateTime.Now;
+        public DateTime NgayDangKy { get; set; } = DateTime.UtcNow;
 
         [StringLength(50)]
         [Display(Name = "Trạng thái")]

@@ -172,6 +172,8 @@ D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\Npgsql.dll
+D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\System.CodeDom.dll
 D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\System.Composition.AttributedModel.dll
 D:\QLPhongGym\QLPhongGym\bin\Debug\net8.0\System.Composition.Convention.dll
@@ -259,6 +261,7 @@ D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.csproj.CoreCompileInputs.ca
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.MvcApplicationPartsAssemblyInfo.cache
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.RazorAssemblyInfo.cache
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.RazorAssemblyInfo.cs
+D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.sourcelink.json
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\rjimswa.dswa.cache.json
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -275,4 +278,3 @@ D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\refint\QLPhongGym.dll
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.pdb
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.genruntimeconfig.cache
 D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\ref\QLPhongGym.dll
-D:\QLPhongGym\QLPhongGym\obj\Debug\net8.0\QLPhongGym.sourcelink.json
