@@ -25,7 +25,8 @@ builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IPasswordHasher<TaiKhoan>, PasswordHasher<TaiKhoan>>();
 
 var app = builder.Build();
-
+// TẠM TẮT ĐOẠN HASH MẬT KHẨU CŨ VÌ RENDER CHƯA KẾT NỐI DB ĐƯỢC
+/*
 // HASH MẬT KHẨU CŨ - CHỈ CHẠY 1 LẦN
 using (var scope = app.Services.CreateScope())
 {
@@ -46,7 +47,7 @@ using (var scope = app.Services.CreateScope())
 
     db.SaveChanges();
 }
-
+*/
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
