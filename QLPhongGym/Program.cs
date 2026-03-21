@@ -47,6 +47,14 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<GymDbContext>();
+    DemoDataSeeder.Seed(db);
+}
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
