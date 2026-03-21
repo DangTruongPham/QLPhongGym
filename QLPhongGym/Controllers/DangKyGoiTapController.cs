@@ -52,97 +52,111 @@ namespace QLPhongGym.Controllers
 
             return View(dangKy);
         }
-
-        // Thêm
-        [HttpGet]
-        public IActionResult Create()
+        //
+                private static DateTime ToUtc(DateTime value)
         {
-            LoadDataDropDown();
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(DangKyGoiTap dangKy)
-        {
-            if (ModelState.IsValid)
+            return value.Kind switch
             {
-                var goiTap = _context.GoiTaps.FirstOrDefault(x => x.MaGoiTap == dangKy.MaGoiTap);
-                if (goiTap == null)
-                {
-                    ModelState.AddModelError("", "Gói tập không tồn tại");
-                    LoadDataDropDown();
-                    return View(dangKy);
-                }
+                DateTimeKind.Utc => value,
+                DateTimeKind.Local => value.ToUniversalTime(),
+                _ => DateTime.SpecifyKind(value, DateTimeKind.Utc)
+            };
+        }
+       // Thêm
+[HttpGet]
+public IActionResult Create()
+{
+    LoadDataDropDown();
+    return View();
+}
 
-                dangKy.NgayKetThuc = dangKy.NgayBatDau.AddMonths(goiTap.ThoiHanThang);
-
-                if (dangKy.NgayKetThuc.Date < DateTime.Today)
-                {
-                    dangKy.TrangThai = "Hết hạn";
-                }
-                else
-                {
-                    dangKy.TrangThai = "Còn hạn";
-                }
-
-                _context.DangKyGoiTaps.Add(dangKy);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Create(DangKyGoiTap dangKy)
+{
+    if (ModelState.IsValid)
+    {
+        var goiTap = _context.GoiTaps.FirstOrDefault(x => x.MaGoiTap == dangKy.MaGoiTap);
+        if (goiTap == null)
+        {
+            ModelState.AddModelError("", "Gói tập không tồn tại");
             LoadDataDropDown();
             return View(dangKy);
         }
 
-        // Sửa
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var dangKy = _context.DangKyGoiTaps.FirstOrDefault(x => x.MaDangKy == id);
-            if (dangKy == null)
-            {
-                return NotFound();
-            }
+        dangKy.NgayBatDau = ToUtc(dangKy.NgayBatDau);
+        dangKy.NgayKetThuc = ToUtc(dangKy.NgayBatDau.AddMonths(goiTap.ThoiHanThang));
 
+        var today = DateTime.UtcNow.Date;
+
+        if (dangKy.NgayKetThuc.Date < today)
+        {
+            dangKy.TrangThai = "Hết hạn";
+        }
+        else
+        {
+            dangKy.TrangThai = "Còn hạn";
+        }
+
+        _context.DangKyGoiTaps.Add(dangKy);
+        _context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    LoadDataDropDown();
+    return View(dangKy);
+}
+
+// Sửa
+[HttpGet]
+public IActionResult Edit(int id)
+{
+    var dangKy = _context.DangKyGoiTaps.FirstOrDefault(x => x.MaDangKy == id);
+    if (dangKy == null)
+    {
+        return NotFound();
+    }
+
+    LoadDataDropDown();
+    return View(dangKy);
+}
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Edit(DangKyGoiTap dangKy)
+{
+    if (ModelState.IsValid)
+    {
+        var goiTap = _context.GoiTaps.FirstOrDefault(x => x.MaGoiTap == dangKy.MaGoiTap);
+        if (goiTap == null)
+        {
+            ModelState.AddModelError("", "Gói tập không tồn tại");
             LoadDataDropDown();
             return View(dangKy);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(DangKyGoiTap dangKy)
+        dangKy.NgayBatDau = ToUtc(dangKy.NgayBatDau);
+        dangKy.NgayKetThuc = ToUtc(dangKy.NgayBatDau.AddMonths(goiTap.ThoiHanThang));
+
+        var today = DateTime.UtcNow.Date;
+
+        if (dangKy.NgayKetThuc.Date < today)
         {
-            if (ModelState.IsValid)
-            {
-                var goiTap = _context.GoiTaps.FirstOrDefault(x => x.MaGoiTap == dangKy.MaGoiTap);
-                if (goiTap == null)
-                {
-                    ModelState.AddModelError("", "Gói tập không tồn tại");
-                    LoadDataDropDown();
-                    return View(dangKy);
-                }
-
-                dangKy.NgayKetThuc = dangKy.NgayBatDau.AddMonths(goiTap.ThoiHanThang);
-
-                if (dangKy.NgayKetThuc.Date < DateTime.Today)
-                {
-                    dangKy.TrangThai = "Hết hạn";
-                }
-                else
-                {
-                    dangKy.TrangThai = "Còn hạn";
-                }
-
-                _context.DangKyGoiTaps.Update(dangKy);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            LoadDataDropDown();
-            return View(dangKy);
+            dangKy.TrangThai = "Hết hạn";
+        }
+        else
+        {
+            dangKy.TrangThai = "Còn hạn";
         }
 
+        _context.DangKyGoiTaps.Update(dangKy);
+        _context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    LoadDataDropDown();
+    return View(dangKy);
+}
         // Xóa
         [HttpGet]
         public IActionResult Delete(int id)

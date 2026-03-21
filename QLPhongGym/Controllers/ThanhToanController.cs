@@ -254,16 +254,16 @@ namespace QLPhongGym.Controllers
         }
 
         private string BuildVietQrUrl(decimal amount, string? addInfo)
-        {
-            var bankId = "VCB";
-            var accountNo = "1031674306";
-            var accountName = Uri.EscapeDataString("PHAN DUY KHANG");
-            var template = "compact2";
-            var amountStr = Convert.ToInt64(amount).ToString();
-            var content = Uri.EscapeDataString(string.IsNullOrWhiteSpace(addInfo) ? "THANH TOAN GYM" : addInfo);
+{
+    var bankId = "BIDV";
+    var accountNo = "7411256649";
+    var accountName = Uri.EscapeDataString("PHAM DANG TRUONG");
+    var template = "compact2";
+    var amountStr = Convert.ToInt64(amount).ToString();
+    var content = Uri.EscapeDataString(string.IsNullOrWhiteSpace(addInfo) ? "THANH TOAN GYM" : addInfo);
 
-            return $"https://img.vietqr.io/image/{bankId}-{accountNo}-{template}.png?amount={amountStr}&addInfo={content}&accountName={accountName}";
-        }
+    return $"https://img.vietqr.io/image/{bankId}-{accountNo}-{template}.png?amount={amountStr}&addInfo={content}&accountName={accountName}";
+}
 
         private string BuildPaymentContent(ThanhToan thanhToan)
         {

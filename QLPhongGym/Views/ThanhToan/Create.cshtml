@@ -57,7 +57,7 @@
     <div class="col-lg-5">
         <div class="card shadow border-0 rounded-4" id="qrCard">
             <div class="card-header bg-primary text-white">
-                <strong><i class="bi bi-qr-code"></i> QR chuyển khoản Vietcombank</strong>
+                <strong><i class="bi bi-qr-code"></i> QR chuyển khoản BIDV</strong>
             </div>
             <div class="card-body text-center">
                 <img id="vietQrPreview"
@@ -67,9 +67,9 @@
                      style="max-width: 320px;" />
 
                 <div class="small text-muted">
-                    Ngân hàng: Vietcombank<br />
-                    STK: 1031674306<br />
-                    Chủ TK: PHAN DUY KHANG
+                    Ngân hàng: BIDV<br />
+                    STK: 7411256649<br />
+                    Chủ TK: PHAM DANG TRUONG
                 </div>
             </div>
         </div>
@@ -111,15 +111,15 @@
             }
         }
 
-        function updateQr() {
+                function updateQr() {
             const amount = amountInput?.value ? parseInt(amountInput.value) || 0 : 0;
             const method = methodInput?.value || "";
-            const accountName = encodeURIComponent("PHAN DUY KHANG");
+            const accountName = encodeURIComponent("PHAM DANG TRUONG");
             const addInfo = encodeURIComponent("THANH TOAN GYM");
 
             if (method === "Chuyển khoản") {
                 qrCard.style.display = "block";
-                qrImg.src = `https://img.vietqr.io/image/VCB-1031674306-compact2.png?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+                qrImg.src = `https://img.vietqr.io/image/BIDV-7411256649-compact2.png?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
             } else {
                 qrCard.style.display = "none";
             }
