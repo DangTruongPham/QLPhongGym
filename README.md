@@ -4,7 +4,7 @@ Lớp: DH22TIN03
 # QLPhongGym
 
 ## Link demo hệ thống
-- Website: https://qlphonggym.onrender.com
+- Link demo: https://qlphonggym.onrender.com
 - Tài khoản test:
   - Admin: admin / 123456
   - User: nhanvien01 / 123456
